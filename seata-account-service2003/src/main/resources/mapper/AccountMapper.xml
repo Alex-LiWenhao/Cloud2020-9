@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alex.springcloud.dao.AccountDao">
+    <resultMap id="AccountResultMap" type="com.alex.springcloud.domain.Account">
+        <id column="id" property="id" jdbcType="BIGINT"></id>
+        <result column="user_id" property="userId" jdbcType="BIGINT"></result>
+        <result column="total" property="total" jdbcType="DECIMAL"></result>
+        <result column="used" property="used" jdbcType="DECIMAL"></result>
+        <result column="residue" property="residue" jdbcType="DECIMAL"></result>
+    </resultMap>
+    <!--void decrease(@Param("userId") Long userId, @Param("money") BigDecimal money);-->
+    <update id="decrease" useGeneratedKeys="true">
+        update t_account set total=total-#{money},
+                            used=used+#{money},
+                            residue=residue-#{money}
+                            where user_id=#{userId}
+    </update>
+
+
+</mapper>
